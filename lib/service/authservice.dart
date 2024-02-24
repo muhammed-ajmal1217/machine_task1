@@ -1,36 +1,44 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 
 class ApiService {
   String uri = 'https://apiv2stg.promilo.com/user/oauth/token';
-  Dio dio = Dio();
+  String expectedAuthorization = 'Basic UHJvbWlsbzpxNCE1NkBaeSN4MiRHQg=='; 
 
   Future<bool> login(String email, String password) async {
-    String shaPassword = generateSHA(password);
-    
+    String shaPassword = generateSHA(password); 
+
     var payload = {
       'username': email,
       'password': shaPassword,
-      'grant_type': password, 
+      'grant_type': 'password',
     };
-    dio.options.headers['Authorization'] = 'Basic UHJvbWlsbzpxNCE1NkBaeSN4MiRHQg==';
+
+    var headers = {
+      'Authorization': expectedAuthorization,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
 
     try {
-      Response res = await dio.post(uri, data: FormData.fromMap(payload));
-      
-      if (res.statusCode == 200) {
-        var responseData = res.data;
+      var response = await http.post(
+        Uri.parse(uri),
+        headers: headers,
+        body: FormData(payload),
+      );
+
+      if (response.statusCode == 200) {
+        var responseData = jsonDecode(response.body);
         var token = responseData['access_token'];
-        print('Token: $token');
-        return true; 
+        print('$token');
+        return true;
       } else {
-        print("Error in response ${res.statusCode}");
-        print('Response body ${res.data}');
-        return false; 
+        print("Error in response ${response.statusCode}");
+        print('Response body ${response.body}');
+        return false;
       }
     } catch (e) {
-      throw Exception('Apiservice Error $e'); 
+      throw Exception('Apiservice Error $e');
     }
   }
 
@@ -38,5 +46,9 @@ class ApiService {
     List<int> bytes = utf8.encode(password);
     Digest sha256Hash = sha256.convert(bytes);
     return sha256Hash.toString();
+  }
+
+  String FormData(Map<String, String> data) {
+    return data.entries.map((entry) => '${entry.key}=${entry.value}').join('&');
   }
 }

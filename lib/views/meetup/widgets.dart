@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:iconsax/iconsax.dart';
 
 class Authors extends StatelessWidget {
@@ -15,43 +16,38 @@ class Authors extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              top: 0, 
+              top: 0,
               left: 0,
               child: CircleAvatar(
-                backgroundImage:
-                    AssetImage('assets/officeboy1.jpg'),
+                backgroundImage: AssetImage('assets/officeboy1.jpg'),
               ),
             ),
             Positioned(
-              top: 0, 
+              top: 0,
               left: 25,
               child: CircleAvatar(
-                backgroundImage:
-                    AssetImage('assets/officeboy2.jpg'),
+                backgroundImage: AssetImage('assets/officeboy2.jpg'),
               ),
             ),
             Positioned(
-              top: 0, 
+              top: 0,
               left: 50,
               child: CircleAvatar(
-                backgroundImage:
-                    AssetImage('assets/officeboy3.jpg'),
+                backgroundImage: AssetImage('assets/officeboy3.jpg'),
               ),
             ),
             Positioned(
-              top: 0, 
+              top: 0,
               left: 75,
               child: CircleAvatar(
-                backgroundImage:
-                    AssetImage('assets/officeboy4.jpg'),
+                backgroundImage: AssetImage('assets/officeboy4.jpg'),
               ),
             ),
             Positioned(
-              top: 0, 
+              top: 0,
               left: 100,
               child: CircleAvatar(
-                backgroundImage:
-                    AssetImage('assets/officeboy5.jpg'),
+                backgroundImage: AssetImage('assets/officeboy5.jpg'),
               ),
             ),
           ],
@@ -60,6 +56,7 @@ class Authors extends StatelessWidget {
     );
   }
 }
+
 class TrendingPopularPeople extends StatelessWidget {
   const TrendingPopularPeople({
     super.key,
@@ -73,7 +70,7 @@ class TrendingPopularPeople extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 170,
       width: 280,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -128,6 +125,33 @@ class TrendingPopularPeople extends StatelessWidget {
             style: TextStyle(color: Colors.grey),
           )),
           Authors(),
+          Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                    minimumSize: MaterialStateProperty.all<Size>(Size(100, 40)),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.zero),
+                    textStyle: MaterialStateProperty.all<TextStyle>(
+                        TextStyle(fontSize: 14)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            10.0), 
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    'See more',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ))
         ],
       ),
     );

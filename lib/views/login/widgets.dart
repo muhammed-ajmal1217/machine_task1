@@ -21,24 +21,24 @@ class LoginPageOptions extends StatelessWidget {
   }
 }
 
-class TextWidget extends StatelessWidget {
+
+class TextWidgets extends StatelessWidget {
   String text;
-   TextWidget({
+  double size;
+   TextWidgets({
     super.key,
     required this.text,
+    required this.size,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        text,
-        style: TextStyle(
-            color: Color.fromARGB(255, 6, 70, 118),
-            fontSize: 16,
-            fontWeight: FontWeight.w600),
-      ),
+    return Text(
+      text,
+      style: TextStyle(
+          color: Color.fromARGB(255, 6, 55, 118),
+          fontSize: size,
+          fontWeight: FontWeight.w600),
     );
   }
 }
